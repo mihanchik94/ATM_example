@@ -1,0 +1,23 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    url: jdbc:postgresql://db:5432/wallet-db
+    username: postgres
+    password: 1234
+  jpa:
+    hibernate:
+      ddl-auto: none
+  liquibase:
+    change-log: db.changelog/changelog.xml
+
+
+logging:
+  config: classpath:logback-spring.xml
+  level:
+    root: ERROR
+    org.example.ATM_example.aspect: WARN
+    org.springframework: ERROR
+    org.hibernate.SQL: WARN
+  file:
+    path: ./logs

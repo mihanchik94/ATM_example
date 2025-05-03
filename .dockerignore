@@ -1,0 +1,10 @@
+!src/
+!pom.xml
+target/
+.git/
+.gitignore
+Dockerfile
+docker-compose.yml
+*.md
+.m2
+.idea/

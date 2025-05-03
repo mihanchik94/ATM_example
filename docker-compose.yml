@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    image: app-wallet-1.0.0
+    restart: always
+    container_name: app-wallet
+    environment:
+      DATABASE_URL: jdbc:postgresql://db:5432/wallet-db
+      DATABASE_PASSWORD: 1234
+      DATABASE_USERNAME: postgres
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:14
+    restart: always
+    environment:
+      POSTGRES_DB: wallet-db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "postgres" ]
+      interval: 10s
+      retries: 3
+
+volumes:
+  postgres-data:
+
